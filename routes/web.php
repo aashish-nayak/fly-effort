@@ -13,16 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+require __DIR__.'/admin_auth.php';
+require __DIR__.'/auth.php';
+
 Route::get('/', function () {
-    return view('welcome');
-});
+    $courses = config('courses',[]);
+    return view('welcome',compact('courses'));
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
 Route::get('admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['admin'])->name('admin.dashboard');
-
-require __DIR__.'/admin_auth.php';
-require __DIR__.'/auth.php';
