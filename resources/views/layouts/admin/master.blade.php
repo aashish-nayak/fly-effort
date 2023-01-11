@@ -3,7 +3,7 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <form method="POST" id="logout-form" action="{{ route('logout') }}">
+    <form method="POST" id="logout-form" action="{{ route('admin.logout') }}">
         @csrf
     </form>
     <div class="page-container">
