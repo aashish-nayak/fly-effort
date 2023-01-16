@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -16,6 +17,29 @@ class UserController extends Controller
     public function profile()
     {
         return view('profile');
+    }
+
+    public function courses()
+    {
+        return view('courses');
+    }
+
+    public function orders()
+    {
+        return view('orders');
+    }
+
+    public function orders_details($order_id = '')
+    {
+        return view('order-details');
+    }
+
+    public function single($course_id)
+    {
+        $course =  Arr::where(config('courses'), function ($value, $key) use($course_id) {
+            return ($value['id'] == $course_id) ? $value : [];
+        });
+        return view('single-course',compact('course'));
     }
 
     public function profile_update(Request $request)

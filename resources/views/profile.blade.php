@@ -11,40 +11,32 @@
         <h2 class="h5 mb-4">General information</h2>
         <div class="row">
           <div class="col-md-6 mb-3">
-            <div class="mb-3">
-              <label for="first_name">Name</label>
-              <input class="form-control" required name="name"
-                value="@if(old('name')){{old('name')}}@else{{auth()->user()->name}}@endif" id="first_name" type="text"
-                placeholder="Enter your name">
-            </div>
+            <label for="first_name">Name</label>
+            <input class="form-control" required name="name"
+              value="@if(old('name')){{old('name')}}@else{{auth()->user()->name}}@endif" id="first_name" type="text"
+              placeholder="Enter your name">
           </div>
           <div class="col-md-6 mb-3">
-            <div class="mb-3">
-              <label for="phone">Phone</label>
-              <input class="form-control" required name="phone"
-                value="@if(old('phone')){{old('phone')}}@else{{auth()->user()->phone}}@endif" id="phone" type="number"
-                placeholder="9000000000">
-            </div>
+            <label for="phone">Phone</label>
+            <input class="form-control" required name="phone"
+              value="@if(old('phone')){{old('phone')}}@else{{auth()->user()->phone}}@endif" id="phone" type="number"
+              placeholder="9000000000">
           </div>
         </div>
         <div class="row">
           <div class="col-12 mb-3">
-            <div class="mb-3">
-              <label for="email">Email</label>
-              <input class="form-control" required name="email"
-                value="@if(old('email')){{old('email')}}@else{{auth()->user()->email}}@endif" id="email" type="email"
-                placeholder="name@company.com">
-            </div>
+            <label for="email">Email</label>
+            <input class="form-control" required name="email"
+              value="@if(old('email')){{old('email')}}@else{{auth()->user()->email}}@endif" id="email" type="email"
+              placeholder="name@company.com">
           </div>
         </div>
         <div class="row align-items-center">
           <div class="col-md-6 mb-3">
-            <div class="mb-3">
-              <label for="birthday">Birthday</label>
-              <input type="date" name="dob" value="@if(old('dob')){{old('dob')}}@else{{auth()->user()->dob}}@endif"
-                class="form-control flatpickr-input" id="birthday" data-toggle="date"
-                placeholder="Select your birth date">
-            </div>
+            <label for="birthday">Birthday</label>
+            <input type="date" name="dob" value="@if(old('dob')){{old('dob')}}@else{{auth()->user()->dob}}@endif"
+              class="form-control flatpickr-input" id="birthday" data-toggle="date"
+              placeholder="Select your birth date">
           </div>
           <div class="col-md-6 mb-3">
             <label for="gender">Gender</label>
@@ -61,30 +53,24 @@
         <h2 class="h5 my-4">Shipping Adress</h2>
         <div class="row">
           <div class="col-sm-9 mb-3">
-            <div class="mb-3">
-              <label for="address">Address</label>
-              <input class="form-control" required name="shipping_address"
-                value="@if(old('shipping_address')){{old('shipping_address')}}@else{{auth()->user()->shipping_address}}@endif"
-                id="address" type="text" placeholder="Enter your home address">
-            </div>
+            <label for="address">Address</label>
+            <input class="form-control" required name="shipping_address"
+              value="@if(old('shipping_address')){{old('shipping_address')}}@else{{auth()->user()->shipping_address}}@endif"
+              id="address" type="text" placeholder="Enter your home address">
           </div>
           <div class="col-sm-3 mb-3">
-            <div class="mb-3">
-              <label for="number">Zip</label>
-              <input class="form-control" required minlength="5" maxlength="6" name="zip"
-                value="@if(old('zip')){{old('zip')}}@else{{auth()->user()->zip}}@endif" id="number" type="number"
-                placeholder="Zip">
-            </div>
+            <label for="number">Zip</label>
+            <input class="form-control" required minlength="5" maxlength="6" name="zip"
+              value="@if(old('zip')){{old('zip')}}@else{{auth()->user()->zip}}@endif" id="number" type="number"
+              placeholder="Zip">
           </div>
         </div>
         <div class="row">
           <div class="col-sm-6 mb-3">
-            <div class="mb-3">
-              <label for="city">City</label>
-              <input class="form-control" required name="city" maxlength="30"
-                value="@if(old('city')){{old('city')}}@else{{auth()->user()->city}}@endif" id="city" type="text"
-                placeholder="City">
-            </div>
+            <label for="city">City</label>
+            <input class="form-control" required name="city" maxlength="30"
+              value="@if(old('city')){{old('city')}}@else{{auth()->user()->city}}@endif" id="city" type="text"
+              placeholder="City">
           </div>
           <div class="col-sm-6 mb-3">
             <label for="country2">State</label>
@@ -188,22 +174,16 @@
           @if (auth('web')->user()->profile_complete == 0)
           <div class="row mt-3">
             <div class="col-lg-6">
-              <div class="mb-3">
-                <label for="formFile" class="form-label">Aadhar Front Image</label>
-                <input class="form-control" type="file" required name="aadhar_front" id="formFile">
-              </div>
+              <label for="formFile" class="form-label">Aadhar Front Image</label>
+              <input class="form-control" type="file" required name="aadhar_front" id="formFile">
             </div>
             <div class="col-lg-6">
-              <div class="mb-3">
-                <label for="formFile" class="form-label">Aadhar Back Image</label>
-                <input class="form-control" type="file" required name="aadhar_back" id="formFile">
-              </div>
+              <label for="formFile" class="form-label">Aadhar Back Image</label>
+              <input class="form-control" type="file" required name="aadhar_back" id="formFile">
             </div>
             <div class="col-lg-6">
-              <div class="mb-3">
-                <label for="formFile" class="form-label">Last Qualification Image</label>
-                <input class="form-control" type="file" required name="last_qualification" id="formFile">
-              </div>
+              <label for="formFile" class="form-label">Last Qualification Image</label>
+              <input class="form-control" type="file" required name="last_qualification" id="formFile">
             </div>
           </div>
           @endif

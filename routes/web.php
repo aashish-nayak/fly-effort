@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RazorpayController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,12 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function(){
     Route::middleware('profile')->group(function(){
         Route::get('/dashboard', [UserController::class,'dashboard'])->name('dashboard');
+        Route::get('/my-courses', [UserController::class,'courses'])->name('courses');
+        Route::get('/checkout-payment/{course_id}', [RazorpayController::class, 'razorpay'])->name('razorpay');
+        Route::get('/orders', [UserController::class,'orders'])->name('orders');
+        Route::get('/order-details/{order_id?}', [UserController::class,'orders_details'])->name('order-details');
+        Route::get('/single-course/{course_id}', [UserController::class,'single'])->name('single');
+        Route::post('/razorpaypayment', [RazorpayController::class, 'payment'])->name('payment');
     });
     Route::post('/profile_update', [UserController::class,'profile_update'])->name('profile_update');
     Route::get('/profile', [UserController::class,'profile'])->name('profile');

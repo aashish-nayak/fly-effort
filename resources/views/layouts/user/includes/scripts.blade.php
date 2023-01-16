@@ -12,5 +12,4 @@
 <script src="{{asset('user_assets/vendor/%40glidejs/glide/dist/glide.min.js')}}"></script>
 <script src="{{asset('user_assets/vendor/countup.js/dist/countUp.umd.js')}}"></script>
 <script src="{{asset('user_assets/vendor/vanillajs-datepicker/dist/js/datepicker.min.js')}}"></script>
-<script async defer="defer" src="../../../../buttons.github.io/buttons.js"></script>
 <script src="{{asset('user_assets/assets/js/pixel.js')}}"></script>

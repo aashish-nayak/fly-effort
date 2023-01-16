@@ -29,6 +29,18 @@
                         <span class="fas fa-chevron-right"></span>
                     </span>
                 </a>
+                <a href="{{route('courses')}}" class="d-flex list-group-item border-0 list-group-item-action">
+                    My Courses
+                    <span class="icon icon-xs ml-auto">
+                        <span class="fas fa-chevron-right"></span>
+                    </span>
+                </a>
+                <a href="{{route('orders')}}" class="d-flex list-group-item border-0 list-group-item-action">
+                    Orders
+                    <span class="icon icon-xs ml-auto">
+                        <span class="fas fa-chevron-right"></span>
+                    </span>
+                </a>
             </div>
         </div>
     </div>

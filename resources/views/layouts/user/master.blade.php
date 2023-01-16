@@ -6,7 +6,7 @@
 </head>
 
 <body>
-  @if (auth('web')->user()->profile_complete == 1)
+  @if (auth('web')->user()->profile_complete == 1 && !request()->routeIs('order-details'))
     @include('layouts.user.includes.top-nav')
   @endif
   <main>
@@ -31,10 +31,10 @@
     <div class="section section-lg pt-5 pt-md-7 bg-soft">
       <div class="container">
         <div class="row pt-5 pt-md-0">
-          @if (auth('web')->user()->profile_complete == 1)
+          @if (auth('web')->user()->profile_complete == 1 && !request()->routeIs('order-details'))
           @include('layouts.user.includes.sidenav')
           @endif
-          <div class="col-12 @if (auth('web')->user()->profile_complete == 1) col-lg-8 @else col-lg-12 @endif">
+          <div class="col-12 @if (auth('web')->user()->profile_complete == 1 && !request()->routeIs('order-details')) col-lg-8 @else col-lg-12 @endif">
             @yield('main')
           </div>
         </div>
