@@ -3,6 +3,7 @@
 
 <head>
   @include('layouts.user.includes.header')
+  @stack('css')
 </head>
 
 <body>

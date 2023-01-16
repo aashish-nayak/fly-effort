@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -21,24 +22,25 @@ class UserController extends Controller
 
     public function courses()
     {
-        return view('courses');
+        $courses = config('courses')->whereIn('id',Order::where('payment_status','paid')->select('course_id')->get()->pluck('course_id'));
+        return view('courses',compact('courses'));
     }
 
     public function orders()
     {
-        return view('orders');
+        $orders = Order::with('user')->get();
+        return view('orders',compact('orders'));
     }
 
-    public function orders_details($order_id = '')
+    public function orders_details($order_id)
     {
-        return view('order-details');
+        $order = Order::where('order_id',$order_id)->first();
+        return view('order-details',compact('order'));
     }
 
-    public function single($course_id)
+    public function single($slug)
     {
-        $course =  Arr::where(config('courses'), function ($value, $key) use($course_id) {
-            return ($value['id'] == $course_id) ? $value : [];
-        });
+        $course = config('courses')->where('slug',$slug)->firstOrFail();
         return view('single-course',compact('course'));
     }
 

@@ -63,7 +63,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{$course['course_name']}}</h5>
                         <p class="card-text">{{$course['description']}}</p>
-                        <a href="{{$course['slug']}}" class="btn btn-primary">Buy Course</a>
+                        <a href="{{url('login')}}" class="btn btn-primary">Buy Course</a>
                     </div>
                 </div>
             </div>

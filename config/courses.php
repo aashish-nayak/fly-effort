@@ -1,6 +1,8 @@
-<?php 
+<?php
 
-return [
+use Illuminate\Support\Collection;
+
+return new Collection([
 
     [
         'id'          => '1',
@@ -8,7 +10,7 @@ return [
         'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
         'image'       => 'https://picsum.photos/250/200',
         'price'       => '2000',
-        'slug'        => '/login'
+        'slug'        => 'course-1'
     ],
     [
         'id'          => '2',
@@ -16,7 +18,7 @@ return [
         'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
         'image'       => 'https://picsum.photos/250/200',
         'price'       => '6000',
-        'slug'        => '/login'
+        'slug'        => 'course-2'
     ],
     [
         'id'          => '3',
@@ -24,7 +26,7 @@ return [
         'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
         'image'       => 'https://picsum.photos/250/200',
         'price'       => '3000',
-        'slug'        => '/login'
+        'slug'        => 'course-3'
     ],
 
-];
+]);

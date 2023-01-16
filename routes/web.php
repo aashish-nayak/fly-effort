@@ -19,7 +19,7 @@ require __DIR__.'/admin_auth.php';
 require __DIR__.'/auth.php';
 
 Route::get('/', function () {
-    $courses = config('courses',[]);
+    $courses = config('courses');
     return view('welcome',compact('courses'));
 })->name('home');
 
@@ -28,10 +28,10 @@ Route::middleware(['auth'])->group(function(){
     Route::middleware('profile')->group(function(){
         Route::get('/dashboard', [UserController::class,'dashboard'])->name('dashboard');
         Route::get('/my-courses', [UserController::class,'courses'])->name('courses');
-        Route::get('/checkout-payment/{course_id}', [RazorpayController::class, 'razorpay'])->name('razorpay');
+        Route::get('/checkout-payment/{course_id}/{order_id?}', [RazorpayController::class, 'razorpay'])->name('razorpay');
         Route::get('/orders', [UserController::class,'orders'])->name('orders');
-        Route::get('/order-details/{order_id?}', [UserController::class,'orders_details'])->name('order-details');
-        Route::get('/single-course/{course_id}', [UserController::class,'single'])->name('single');
+        Route::get('/order-details/{order_id}', [UserController::class,'orders_details'])->name('order-details');
+        Route::get('/single-course/{slug}', [UserController::class,'single'])->name('single');
         Route::post('/razorpaypayment', [RazorpayController::class, 'payment'])->name('payment');
     });
     Route::post('/profile_update', [UserController::class,'profile_update'])->name('profile_update');
