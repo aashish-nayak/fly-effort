@@ -46,8 +46,8 @@
             <dd class="col-6">{{date('d/m/Y',strtotime($order->created_at))}}</dd>
             <dt class="col-6"><strong>Payment Status:</strong></dt>
             <dd class="col-6">
-              @if ($order->payment_status == 'pending')
-              <a href="{{route('razorpay',[$order->course_id,$order->order_id])}}" class="btn btn-xs btn-outline-dark">Pay now</a>
+              @if ($order->payment_status == 'failed')
+              <span class="badge bg-danger badge-sm">Failed</span>
               @else
               <span class="badge bg-secondary badge-sm">Paid</span>
               @endif

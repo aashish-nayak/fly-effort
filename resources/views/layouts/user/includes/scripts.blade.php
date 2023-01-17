@@ -9,7 +9,7 @@
 <script src="{{asset('user_assets/vendor/vivus/dist/vivus.min.js')}}"></script>
 <script src="{{asset('user_assets/vendor/chartist/dist/chartist.min.js')}}"></script>
 <script src="{{asset('user_assets/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
-<script src="{{asset('user_assets/vendor/%40glidejs/glide/dist/glide.min.js')}}"></script>
+<script src="{{asset('user_assets/vendor/glidejs/glide/dist/glide.min.js')}}"></script>
 <script src="{{asset('user_assets/vendor/countup.js/dist/countUp.umd.js')}}"></script>
 <script src="{{asset('user_assets/vendor/vanillajs-datepicker/dist/js/datepicker.min.js')}}"></script>
 <script src="{{asset('user_assets/assets/js/pixel.js')}}"></script>

@@ -43,6 +43,7 @@
     </div>
   </main>
   @include('layouts.user.includes.scripts')
+  @stack('js')
 </body>
 
 </html>

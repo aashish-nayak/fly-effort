@@ -21,8 +21,10 @@
             <small class="text-gray-700">Billed {{\Carbon\Carbon::create($order->created_at)->format('d M Y')}}</small>
           </div>
           <div class="col-auto">
-            @if ($order->payment_status == 'pending')
-            <a href="{{route('razorpay',[$order->course_id,$order->order_id])}}" class="btn btn-xs btn-outline-dark">Pay now</a>
+            @if ($order->payment_status == 'failed')
+            <span class="badge badge-pill bg-danger">
+              <span class="text-uppercase font-weight-bold">Failed</span>
+            </span>
             @else
             <span class="badge badge-pill bg-secondary">
               <span class="text-uppercase font-weight-bold">Paid</span>

@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('status')->default(1);
             $table->boolean('profile_complete')->default(0);
+            $table->string('result')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

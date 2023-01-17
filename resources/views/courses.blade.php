@@ -24,6 +24,7 @@
             <a href="{{route('single',$course['slug'])}}">
               <h2 class="h5">{{$course['course_name']}}</h2>
             </a>
+            <p>{{$course['description']}}</p>
             <div class="col d-flex pl-0">
               <span class="text-success font-small mr-3">
                 <span class="fas fa-check-circle mr-2"></span>Active

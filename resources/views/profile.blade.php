@@ -15,12 +15,18 @@
             <input class="form-control" required name="name"
               value="@if(old('name')){{old('name')}}@else{{auth()->user()->name}}@endif" id="first_name" type="text"
               placeholder="Enter your name">
+              @error('name')
+              <span class="text-danger">{{$message}}</span>    
+              @enderror
           </div>
           <div class="col-md-6 mb-3">
             <label for="phone">Phone</label>
             <input class="form-control" required name="phone"
               value="@if(old('phone')){{old('phone')}}@else{{auth()->user()->phone}}@endif" id="phone" type="number"
               placeholder="9000000000">
+              @error('phone')
+              <span class="text-danger">{{$message}}</span>    
+              @enderror
           </div>
         </div>
         <div class="row">
@@ -29,6 +35,9 @@
             <input class="form-control" required name="email"
               value="@if(old('email')){{old('email')}}@else{{auth()->user()->email}}@endif" id="email" type="email"
               placeholder="name@company.com">
+              @error('email')
+              <span class="text-danger">{{$message}}</span>    
+              @enderror
           </div>
         </div>
         <div class="row align-items-center">
@@ -37,6 +46,9 @@
             <input type="date" name="dob" value="@if(old('dob')){{old('dob')}}@else{{auth()->user()->dob}}@endif"
               class="form-control flatpickr-input" id="birthday" data-toggle="date"
               placeholder="Select your birth date">
+              @error('dob')
+              <span class="text-danger">{{$message}}</span>    
+              @enderror
           </div>
           <div class="col-md-6 mb-3">
             <label for="gender">Gender</label>
@@ -48,6 +60,9 @@
               <option value="other" {{(old('gender')=='other' || auth()->user()->gender == 'other')?'selected' :
                 ''}}>Other</option>
             </select>
+            @error('gender')
+              <span class="text-danger">{{$message}}</span>    
+            @enderror
           </div>
         </div>
         <h2 class="h5 my-4">Shipping Adress</h2>
@@ -57,12 +72,18 @@
             <input class="form-control" required name="shipping_address"
               value="@if(old('shipping_address')){{old('shipping_address')}}@else{{auth()->user()->shipping_address}}@endif"
               id="address" type="text" placeholder="Enter your home address">
+              @error('shipping_address')
+              <span class="text-danger">{{$message}}</span>    
+              @enderror
           </div>
           <div class="col-sm-3 mb-3">
             <label for="number">Zip</label>
             <input class="form-control" required minlength="5" maxlength="6" name="zip"
               value="@if(old('zip')){{old('zip')}}@else{{auth()->user()->zip}}@endif" id="number" type="number"
               placeholder="Zip">
+              @error('zip')
+              <span class="text-danger">{{$message}}</span>    
+              @enderror
           </div>
         </div>
         <div class="row">
@@ -71,6 +92,9 @@
             <input class="form-control" required name="city" maxlength="30"
               value="@if(old('city')){{old('city')}}@else{{auth()->user()->city}}@endif" id="city" type="text"
               placeholder="City">
+              @error('city')
+              <span class="text-danger">{{$message}}</span>    
+              @enderror
           </div>
           <div class="col-sm-6 mb-3">
             <label for="country2">State</label>
@@ -149,6 +173,9 @@
               <option {{(old('state')=='Puducherry' || auth()->user()->state == 'Puducherry')?'selected' : ''}}
                 value="Puducherry">Puducherry</option>
             </select>
+            @error('state')
+              <span class="text-danger">{{$message}}</span>    
+            @enderror
           </div>
         </div>
       </div>
@@ -173,15 +200,15 @@
           </div>
           @if (auth('web')->user()->profile_complete == 0)
           <div class="row mt-3">
-            <div class="col-lg-6">
+            <div class="col-lg-6 mb-3">
               <label for="formFile" class="form-label">Aadhar Front Image</label>
               <input class="form-control" type="file" required name="aadhar_front" id="formFile">
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 mb-3">
               <label for="formFile" class="form-label">Aadhar Back Image</label>
               <input class="form-control" type="file" required name="aadhar_back" id="formFile">
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 mb-3">
               <label for="formFile" class="form-label">Last Qualification Image</label>
               <input class="form-control" type="file" required name="last_qualification" id="formFile">
             </div>

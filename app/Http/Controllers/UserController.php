@@ -28,7 +28,7 @@ class UserController extends Controller
 
     public function orders()
     {
-        $orders = Order::with('user')->get();
+        $orders = Order::with('user')->latest()->get();
         return view('orders',compact('orders'));
     }
 
@@ -46,7 +46,25 @@ class UserController extends Controller
 
     public function profile_update(Request $request)
     {
+        $checkEmail = '';
+        $checkPhone = '';
+        if($request->email != auth('web')->user()->email){
+            $checkEmail = 'unique:users';
+        }
+        if($request->phone != auth('web')->user()->phone){
+            $checkPhone = 'unique:users';
+        }
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255',$checkEmail],
+            'phone' => ['required', 'numeric',$checkPhone],
+            'shipping_address' => ['required', 'string', 'max:255'],
+            'zip' => ['required', 'numeric'],
+            'city' => ['required', 'string', 'max:255'],
+            'state' => ['required', 'string', 'max:255'],
+        ]);
         $user = User::find(auth()->id());
+        $route = ($user->profile_complete != 0) ? route('profile') : route('dashboard');
         $user->dp = $this->uploader($request,'dp',$user);
         $user->profile_complete = 1;
         $user->aadhar_front = $this->uploader($request,'aadhar_front',$user);
@@ -54,7 +72,7 @@ class UserController extends Controller
         $user->last_qualification = $this->uploader($request,'last_qualification',$user);
         $user->fill($request->except('_token','dp','aadhar_front','aadhar_back','last_qualification'));
         $user->save();
-        return redirect()->route('profile');
+        return redirect($route);
     }
 
     public function uploader($request,$uploadfile,$edit = null)
@@ -69,6 +87,6 @@ class UserController extends Controller
             $file->storeAs('public/user_data/'.auth()->id(), $filename);
             return $filename;
         }
-        return null;
+        return $edit[$uploadfile];
     }
 }

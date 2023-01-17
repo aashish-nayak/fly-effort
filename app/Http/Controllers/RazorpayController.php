@@ -13,46 +13,50 @@ class RazorpayController extends Controller
     public function razorpay($course_id,$order = '')
     {   
         $course = config('courses')->where('id',$course_id)->firstOrFail();
-        if($order != ''){
-            $order = Order::where('order_id',$order)->where('payment_status','pending')->first();
-        }else{
-            $order = new Order();
-            $order->order_id = Str::random();
-            $order->price = number_format((float)$course['price'], 2, '.', '');
-            $order->user_id = auth('web')->id();
-            $order->course_id = $course['id'];
-            $order->course_name = $course['course_name'];
-            $order->payment_status = 'pending';
-            $order->save();
-        }
-        return view('payment',compact('course','order'));
+        $orderData = [
+            'receipt'         => Str::random(),
+            'amount'          => (int)$course['price']."00",
+            'currency'        => 'INR',
+            'notes'           => array('course_id'=> $course['id'])
+        ];
+        $api = new API(env('RAZOR_KEY'), env('RAZOR_SECRET'));
+        $razorpayOrder = $api->order->create($orderData);
+        return view('payment',compact('course','razorpayOrder'));
     }
 
     public function payment(Request $request)
     {   
         $input = $request->all();
         $api = new API(env('RAZOR_KEY'), env('RAZOR_SECRET'));
-        $payment = $api->payment->fetch($input['razorpay_payment_id']);
-
         if(count($input)  && !empty($input['razorpay_payment_id'])) 
         {
             try 
             {
-                $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment['amount'])); 
-                $order = Order::where('order_id',$request->order_id)->where('payment_status','pending')->first();
-                $order->payment_id = $response->id;
-                $order->method = $response->method;
-                $order->parcel_status = 'dispatched';
-                $order->payment_status = 'paid';
+                $payment = $api->payment->fetch($input['razorpay_payment_id']);
+                $course = config('courses')->where('id',$request->course_id)->firstOrFail();
+                $order = new Order();
+                $order->order_id = Str::random();
+                $order->price = number_format((float)$course['price'], 2, '.', '');
+                $order->user_id = auth('web')->id();
+                $order->course_id = $course['id'];
+                $order->course_name = $course['course_name'];
+                $order->payment_id = $payment->id;
+                $order->method = $payment->method;
+                $order->parcel_status = ($payment->status != 'failed') ? 'dispatched' : 'failed';
+                $order->payment_status = ($payment->status != 'failed') ? 'paid' : 'failed';
+                if($payment->status != 'failed'){
+                    $request->session()->flash('success','Payment successful, your order will be despatched in the next 48 hours.');
+                }else{
+                    $request->session()->flash('error','Payment Failed!');
+                }
+                $message = ['success'=>'Payment successful, your order will be despatched in the next 48 hours.'];
                 $order->save();
-                $request->session()->flash('success','Payment successful, your order will be despatched in the next 48 hours.');
-                return redirect()->route('courses');
             } 
             catch (\Exception $e) 
             {
-                $request->session()->flash('error',$e->getMessage());
-                return redirect()->back();
-            }            
+                $message = ['error'=>$e->getMessage()];
+            }
+            return response()->json($message);
         }
     }
 }
