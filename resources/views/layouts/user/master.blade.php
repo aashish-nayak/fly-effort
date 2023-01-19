@@ -6,10 +6,7 @@
   @stack('css')
 </head>
 
-<body>
-  @if (auth('web')->user()->profile_complete == 1 && !request()->routeIs('order-details'))
-    @include('layouts.user.includes.top-nav')
-  @endif
+<body class="bg-soft">
   <main>
     <div class="preloader bg-dark flex-column justify-content-center align-items-center">
       <svg id="loader-logo" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 64 78.4">
@@ -29,9 +26,9 @@
         <rect fill="none" stroke="#fff" x="14" stroke-width="28.8" y="17.6" width="0" height="11.2" />
       </svg>
     </div>
-    <div class="section section-lg pt-5 pt-md-7 bg-soft">
+    <div class="py-5">
       <div class="container">
-        <div class="row pt-5 pt-md-0">
+        <div class="row">
           @if (auth('web')->user()->profile_complete == 1 && !request()->routeIs('order-details'))
           @include('layouts.user.includes.sidenav')
           @endif

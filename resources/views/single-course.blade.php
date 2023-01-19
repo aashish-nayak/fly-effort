@@ -19,9 +19,11 @@
         right: 0%;
         left: 0%;
         font-size: 14px;
+        display :flex;
+        justify-content : space-between;
+        align-items : center;
         background-color: #00000038;
         border-radius: 5px 5px 0px 0px;
-        text-align: end;
         padding: 1px 10px;
       }
     </style>
@@ -41,38 +43,54 @@
     </div>
     <hr>
     <h5>Assignments</h5>
+    @if(Session::has('success'))
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> {{ Session::get('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+    @if($assignments->where('upload_by','user')->count() < 2)
     <div class="col-12 col-md-6 col-lg-4">
-      <form action="" method="post">
+      <form action="{{route('assignment')}}" method="post" enctype="multipart/form-data">
+        @csrf
         <div class="mb-3">
           <label for="formFile" class="form-label">Upload Assignment PDF</label>
-          <input class="form-control form-control-sm" type="file" accept="pdf" name="assignment" id="formFile">
+          <input type="hidden" name="course_id" value="{{$course['id']}}">
+          <input class="form-control form-control-sm" required type="file" accept="application/pdf" name="assignment" id="formFile">
+          <input type="submit" class="btn btn-xs btn-gray mt-2" value="Upload">
         </div>
       </form>
     </div>
+    @endif
     <div class="col-12 mt-4">
       <div class="row row-cols-md-6 row-cols-2">
+        @foreach($assignments as $assign)
         <div class="col">
           <div class="assignment">
             <span class="fa fa-file-pdf"></span>
             <div class="actions">
-              <a href=""><i class="fa fa-download"></i></a>
+              <span class="badge bg-info" style="font-size:8px;">{{($assign->upload_by == 'user') ? 'You' : 'Admin'}}</span>
+              <a href="{{asset('storage/user_data/'.auth()->id().'/'.$assign->assignment)}}" download="{{$assign->assignment}}"><i class="fa fa-download"></i></a>
             </div>
           </div>
         </div>
+        @endforeach
       </div>
     </div>
     <hr>
+    @if(auth('web')->user()->result != '')
     <h5>Result</h5>
     <div class="col-12">
       <div class="col-md-3 col-8">
         <div class="assignment">
           <span class="fa fa-file-pdf"></span>
           <div class="actions">
-            <a href=""><i class="fa fa-download"></i></a>
+            <a href="{{asset('storage/user_data/'.auth()->id().'/'.auth()->user()->result)}}" download="{{auth('web')->user()->result}}"><i class="fa fa-download"></i></a>
           </div>
         </div>
       </div>
     </div>
+    @endif
   </div>
 </div>
 @endsection

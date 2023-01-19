@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/order-details/{order_id}', [UserController::class,'orders_details'])->name('order-details');
         Route::get('/single-course/{slug}', [UserController::class,'single'])->name('single');
         Route::post('/razorpaypayment', [RazorpayController::class, 'payment'])->name('payment');
+        Route::post('/store-assignments', [UserController::class, 'assignment'])->name('assignment');
     });
     Route::post('/profile_update', [UserController::class,'profile_update'])->name('profile_update');
     Route::get('/profile', [UserController::class,'profile'])->name('profile');

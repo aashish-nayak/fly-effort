@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\User;
+use App\Models\Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -12,7 +13,9 @@ class UserController extends Controller
 {
     public function dashboard()
     {
-        return view('dashboard');
+        $courseCount = Order::where('user_id',auth('web')->id())->where('payment_status','paid')->count();
+        $orderCount = Order::where('user_id',auth('web')->id())->count();
+        return view('dashboard', compact('courseCount','orderCount'));
     }
 
     public function profile()
@@ -28,7 +31,7 @@ class UserController extends Controller
 
     public function orders()
     {
-        $orders = Order::with('user')->latest()->get();
+        $orders = Order::with('user')->where('user_id',auth('web')->id())->latest()->get();
         return view('orders',compact('orders'));
     }
 
@@ -41,7 +44,8 @@ class UserController extends Controller
     public function single($slug)
     {
         $course = config('courses')->where('slug',$slug)->firstOrFail();
-        return view('single-course',compact('course'));
+        $assignments = Assignment::where('user_id',auth('web')->id())->where('course_id',$course['id'])->get();
+        return view('single-course',compact('course','assignments'));
     }
 
     public function profile_update(Request $request)
@@ -73,6 +77,26 @@ class UserController extends Controller
         $user->fill($request->except('_token','dp','aadhar_front','aadhar_back','last_qualification'));
         $user->save();
         return redirect($route);
+    }
+
+    public function assignment(Request $request)
+    {
+        // dd($request->all());
+        if($request->hasFile('assignment')){
+            $file = $request->file('assignment');
+            $extension = $file->getClientOriginalExtension();
+            $filename =  'assignment___' .  auth()->user()->email . '__' .  time() . '.' . $extension;
+            $file->storeAs('public/user_data/'.auth()->id(), $filename);
+            
+            $assignment = new Assignment();
+            $assignment->user_id = auth('web')->id();
+            $assignment->course_id = $request->course_id;
+            $assignment->upload_by = 'user';
+            $assignment->assignment = $filename;
+            $assignment->save();
+            $request->session()->flash('success','Assignment Uploaded Successfully!');
+        }
+        return redirect()->back();
     }
 
     public function uploader($request,$uploadfile,$edit = null)

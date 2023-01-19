@@ -11,3 +11,12 @@
 <link rel="stylesheet" href="{{asset('user_assets/vendor/glidejs/glide/dist/css/glide.core.min.css')}}" />
 <link rel="stylesheet" href="{{asset('user_assets/vendor/glidejs/glide/dist/css/glide.theme.min.css')}}" />
 <link rel="stylesheet" href="{{asset('user_assets/css/pixel.css')}}" />
+<style>
+    .custom-scroll::-webkit-scrollbar {
+        width: 5px;
+        height : 3px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+        background-color : #e6e6e6;
+    }
+</style>
