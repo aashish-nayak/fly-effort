@@ -49,7 +49,7 @@
     <div class="card bg-white border-light mb-4 mb-lg-5">
         <div class="card-body">
             <div class="row align-items-center">
-                <div class="col-12 d-flex custom-scroll pb-1" style="overflow-x:auto;">
+                <div class="col-12 d-flex custom-scroll pb-1">
                     <a href="{{route('dashboard')}}"
                         class="list-group-item list-group-item-action border-0 text-center mr-2">
                         Dashboard

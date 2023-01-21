@@ -12,11 +12,24 @@
 <link rel="stylesheet" href="{{asset('user_assets/vendor/glidejs/glide/dist/css/glide.theme.min.css')}}" />
 <link rel="stylesheet" href="{{asset('user_assets/css/pixel.css')}}" />
 <style>
+    .custom-scroll {
+        overflow-x: auto;
+    }
+
     .custom-scroll::-webkit-scrollbar {
         width: 5px;
-        height : 3px;
+        height: 3px;
     }
+
     .custom-scroll::-webkit-scrollbar-track {
-        background-color : #e6e6e6;
+        background-color: #e6e6e6;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
 </style>

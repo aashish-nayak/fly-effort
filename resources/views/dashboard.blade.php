@@ -6,6 +6,9 @@
 <div class="row">
   <div class="col-12 col-md-6 mb-4">
     <div class="card border-light">
+      <div class="card-header py-2">
+        <p class="m-0 fw-bold">Notification</p>
+      </div>
       <div class="card-body" style="min-height:200px;max-height:250px;overflow-y: auto;">
         <div>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores laudantium amet cum qui debitis nostrum atque deserunt quisquam quidem tenetur pariatur perferendis eligendi error ipsum, adipisci voluptatum eum optio impedit.</p>
