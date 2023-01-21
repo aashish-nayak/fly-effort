@@ -25,6 +25,7 @@ class CreateOrdersTable extends Migration
             $table->string('parcel_status')->nullable();
             $table->string('tracking_link')->nullable();
             $table->string('payment_status')->default('pending');
+            $table->string('result')->nullable();
             $table->timestamps();
         });
     }

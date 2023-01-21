@@ -64,4 +64,9 @@ class User extends Authenticatable
             return 'https://eu.ui-avatars.com/api/?name=NoImage&size=250';
         }
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class,'user_id')->latest();
+    }
 }

@@ -22,5 +22,5 @@
     <link rel="stylesheet" href="{{asset('assets/css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
     @stack('css')
-    <title>Admin Dashboard</title>
+    <title>@yield('title') - {{config('info.app')}}</title>
 </head>

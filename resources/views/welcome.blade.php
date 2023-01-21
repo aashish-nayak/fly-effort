@@ -71,6 +71,44 @@
         </div>
     </div>
 
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <form class="row g-3 border py-3" action="{{route('internship')}}" method="POST">
+                    @csrf
+                    <div class="col-md-6">
+                        <label for="inputName" class="form-label">Name</label>
+                        <input type="text" name="name" required class="form-control" id="inputName">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputEmail4" class="form-label">Email</label>
+                        <input type="email" name="email" required class="form-control" id="inputEmail4">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPassword4" class="form-label">Phone</label>
+                        <input type="number" maxlength="12" required name="phone" class="form-control" id="inputPassword4">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputAddress" class="form-label">Last Qualification</label>
+                        <input type="text" name="last_qualification" required class="form-control" id="inputAddress">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputState" class="form-label">Select Course</label>
+                        <select id="inputState" name="course" required class="form-select">
+                            <option selected disabled value="">Choose...</option>
+                            @foreach (config('courses') as $course)
+                                <option value="{{$course['id']}}">{{$course['course_name']}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

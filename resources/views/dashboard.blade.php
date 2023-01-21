@@ -11,8 +11,7 @@
       </div>
       <div class="card-body" style="min-height:200px;max-height:250px;overflow-y: auto;">
         <div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores laudantium amet cum qui debitis nostrum atque deserunt quisquam quidem tenetur pariatur perferendis eligendi error ipsum, adipisci voluptatum eum optio impedit.</p>
-          <a href="">Help Desk</a>
+          {!!$noti->notification!!}
         </div>
       </div>
     </div>

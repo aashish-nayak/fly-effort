@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\Assignment;
+use App\Models\Internship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -15,7 +17,8 @@ class UserController extends Controller
     {
         $courseCount = Order::where('user_id',auth('web')->id())->where('payment_status','paid')->count();
         $orderCount = Order::where('user_id',auth('web')->id())->count();
-        return view('dashboard', compact('courseCount','orderCount'));
+        $noti = Admin::first();
+        return view('dashboard', compact('courseCount','orderCount','noti'));
     }
 
     public function profile()
@@ -25,7 +28,7 @@ class UserController extends Controller
 
     public function courses()
     {
-        $courses = config('courses')->whereIn('id',Order::where('payment_status','paid')->select('course_id')->get()->pluck('course_id'));
+        $courses = config('courses')->whereIn('id',Order::where('user_id',auth('web')->id())->where('payment_status','paid')->select('course_id')->get()->pluck('course_id'));
         return view('courses',compact('courses'));
     }
 
@@ -44,8 +47,9 @@ class UserController extends Controller
     public function single($slug)
     {
         $course = config('courses')->where('slug',$slug)->firstOrFail();
-        $assignments = Assignment::where('user_id',auth('web')->id())->where('course_id',$course['id'])->get();
-        return view('single-course',compact('course','assignments'));
+        $assignments = Assignment::where('user_id',auth('web')->id())->where('course_id',$course['id'])->latest()->get();
+        $order = Order::where('user_id',auth('web')->id())->where('course_id',$course['id'])->where('payment_status','paid')->select('id','result')->first();
+        return view('single-course',compact('course','assignments','order'));
     }
 
     public function profile_update(Request $request)
@@ -81,7 +85,6 @@ class UserController extends Controller
 
     public function assignment(Request $request)
     {
-        // dd($request->all());
         if($request->hasFile('assignment')){
             $file = $request->file('assignment');
             $extension = $file->getClientOriginalExtension();
@@ -96,6 +99,15 @@ class UserController extends Controller
             $assignment->save();
             $request->session()->flash('success','Assignment Uploaded Successfully!');
         }
+        return redirect()->back();
+    }
+
+    public function internship_submit(Request $request)
+    {
+        $intern = new Internship();
+        $intern->fill($request->except('_token'));
+        $intern->save();
+        $request->session('success','Thank you for getting Interested in our Course');
         return redirect()->back();
     }
 

@@ -14,8 +14,8 @@
                     <div class="card">
                         <div class="seo-fact sbg1">
                             <div class="p-4 d-flex justify-content-between align-items-center">
-                                <div class="seofct-icon"><i class="ti-eye"></i>Verified Viewers</div>
-                                {{-- <h2>{{$viewers}}</h2> --}}
+                                <div class="seofct-icon"><i class="ti-user"></i>Total Students</div>
+                                <h2>{{$totalUsers}}</h2>
                             </div>
                             <canvas id="seolinechart1" height="50"></canvas>
                         </div>
@@ -25,8 +25,8 @@
                     <div class="card">
                         <div class="seo-fact sbg2">
                             <div class="p-4 d-flex justify-content-between align-items-center">
-                                <div class="seofct-icon"><i class="ti-shopping-cart"></i> Products</div>
-                                {{-- <h2>{{$pages}}</h2> --}}
+                                <div class="seofct-icon"><i class="ti-shopping-cart"></i> Total Orders</div>
+                                <h2>{{$totalOrders}}</h2>
                             </div>
                             <canvas id="seolinechart2" height="50"></canvas>
                         </div>
@@ -36,41 +36,8 @@
                     <div class="card">
                         <div class="seo-fact sbg3">
                             <div class="p-4 d-flex justify-content-between align-items-center">
-                                <div class="seofct-icon"><i class="ti-layout-grid2-alt"></i> Categories</div>
-                                {{-- <h2>{{$cats}}</h2> --}}
-                            </div>
-                            <canvas id="seolinechart2" height="50"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div class="seo-fact sbg4">
-                            <div class="p-4 d-flex justify-content-between align-items-center">
-                                <div class="seofct-icon"><i class="ti-lock"></i> Locked Categories</div>
-                                {{-- <h2>{{$protected_cat}}</h2> --}}
-                            </div>
-                            <canvas id="seolinechart2" height="50"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div class="seo-fact sbg1">
-                            <div class="p-4 d-flex justify-content-between align-items-center">
-                                <div class="seofct-icon"><i class="ti-camera"></i> Media Files</div>
-                                {{-- <h2>{{$media}}</h2> --}}
-                            </div>
-                            <canvas id="seolinechart2" height="50"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div class="seo-fact sbg4">
-                            <div class="p-4 d-flex justify-content-between align-items-center">
-                                <div class="seofct-icon"><i class="ti-lock"></i> Locked Products</div>
-                                {{-- <h2>{{$protected_prod}}</h2> --}}
+                                <div class="seofct-icon"><i class="ti-book"></i> Offline Internships</div>
+                                <h2>{{$totalInterns}}</h2>
                             </div>
                             <canvas id="seolinechart2" height="50"></canvas>
                         </div>

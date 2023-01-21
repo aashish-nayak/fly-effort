@@ -78,14 +78,14 @@
       </div>
     </div>
     <hr>
-    @if(auth('web')->user()->result != '')
+    @if($order->result != '')
     <h5>Result</h5>
     <div class="col-12">
       <div class="col-md-3 col-8">
         <div class="assignment">
           <span class="fa fa-file-pdf"></span>
           <div class="actions">
-            <a href="{{asset('storage/user_data/'.auth()->id().'/'.auth()->user()->result)}}" download="{{auth('web')->user()->result}}"><i class="fa fa-download"></i></a>
+            <a href="{{asset('storage/user_data/'.auth()->id().'/'.$order->result)}}" download="{{$order->result}}"><i class="fa fa-download"></i></a>
           </div>
         </div>
       </div>
