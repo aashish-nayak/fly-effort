@@ -34,7 +34,9 @@
             </div>
             <div class="card-body" style="min-height:200px;max-height:350px;overflow-y: auto;">
                 <div>
-                  {!!$notification->notification!!}
+                    @php
+                        echo html_entity_decode($notification->notification);
+                    @endphp
                 </div>
               </div>
         </div>

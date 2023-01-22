@@ -154,4 +154,17 @@ class AdminController extends Controller
         }
         return redirect()->back();
     }
+
+    public function tracking_link(Request $request)
+    {
+        try {
+            $order = Order::find($request->order_id);
+            $order->tracking_link = $request->tracking;
+            $order->save();
+            $request->session()->flash('success','Tracking Link Updated Successfully !');
+        } catch (\Exception $e) {
+            $request->session()->flash('error',$e->getMessage());
+        }
+        return redirect()->back();
+    }
 }

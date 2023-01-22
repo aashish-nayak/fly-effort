@@ -10,4 +10,5 @@ return new Collection([
     'phone2' => '0987654321',
     'whatsapp' => '1234567890',
     'address' => 'dyukas,dka jnasdkj naskjdn asd jasd',
+    'logo' => 'https://upload.wikimedia.org/wikipedia/commons/8/85/Logo-Test.png',
 ]);

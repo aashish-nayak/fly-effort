@@ -87,6 +87,9 @@
                         <div class="col-12 col-md-6 mb-3">
                             <form action="{{route('admin.upload-result')}}" method="post" enctype="multipart/form-data">
                                 <div class="row">
+                                    <div class="col-12 mb-2">
+                                        <h6>Result Upload</h6>
+                                    </div>
                                     <div class="col-md-6 mb-2">
                                         <label for="select-course">Select Course</label>
                                         <select name="order_id" class="form-control form-control-sm" required id="select-course">
@@ -96,6 +99,9 @@
                                                     $course = config('courses')->where('id',$order->course_id)->first();
                                                 @endphp
                                                 <option value="{{$order['id']}}">{{$course['course_name']}}</option>
+                                                @push('option_orders')
+                                                <option value="{{$order['id']}}">{{$course['course_name']}}</option>
+                                                @endpush
                                                 @push('option_courses')
                                                 <option value="{{$course['id']}}">{{$course['course_name']}}</option>
                                                 @endpush
@@ -143,6 +149,9 @@
                         </table>
                     </div>
                     <div class="tab-pane fade" id="nav-assignments" role="tabpanel" aria-labelledby="nav-assignments-tab">
+                        <div class="col-12 mb-2">
+                            <h6>Assignment Upload</h6>
+                        </div>
                         <div class="col-12 col-md-6 mb-3">
                             <form action="{{route('admin.upload-assignment')}}" method="post" enctype="multipart/form-data">
                                 <div class="row">
@@ -194,7 +203,32 @@
                         </table>
                     </div>
                     <div class="tab-pane fade" id="nav-orders" role="tabpanel" aria-labelledby="nav-orders-tab">
-                        <table class="table table-striped table-bordered" style="width:100%">
+                        <div class="col-12 mb-2">
+                            <h6>Parcel Tracking Link</h6>
+                        </div>
+                        <div class="col-12 col-md-6 mb-3">
+                            <form action="{{route('admin.tracking-link')}}" method="post" >
+                                <div class="row">
+                                    <input type="hidden" name="user_id" value="{{$user->id}}">
+                                    <div class="col-12 mb-2">
+                                        <label for="select-assignments">Select Course</label>
+                                        <select name="order_id" class="form-control form-control-sm" required id="select-assignments">
+                                            <option value="">Select Course</option>
+                                            @stack('option_orders')
+                                        </select>
+                                    </div>
+                                    @csrf
+                                    <div class="col-12 mb-2">
+                                        <label for="tracking">Tracking Link</label>
+                                        <input type="url" name="tracking" required class="form-control form-control-sm" id="tracking"/>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Submit" class="btn btn-sm btn-primary">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <table class="table table-responsive table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>SNo.</th>
@@ -204,8 +238,9 @@
                                     <th>Discount</th>
                                     <th>Price</th>
                                     <th>Method</th>
+                                    <th>TrackingLink</th>
                                     <th>Payment Status</th>
-                                    <th>Order Date</th>
+                                    <th>OrderDate</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -218,6 +253,13 @@
                                     <td>{{ $item->discount }}</td>
                                     <td>{{ $item->price }}</td>
                                     <td>{{ $item->method }}</td>
+                                    <td>
+                                        @if ($item->tracking_link != '')
+                                            <a href="{{ $item->tracking_link }}" target="_blank" rel="noopener noreferrer">Track</a>
+                                            @else
+                                            No Link
+                                        @endif
+                                    </td>
                                     <td><span class="badge badge-sm {{ ($item->payment_status == 'paid') ? 'badge-success' : 'badge-danger' }}">{{ $item->payment_status }}</span></td>
                                     <td>{{ date('h:iA d-m-Y',strtotime($item->created_at)) }}</td>
                                 </tr>

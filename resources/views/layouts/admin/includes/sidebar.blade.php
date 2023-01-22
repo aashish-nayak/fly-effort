@@ -1,7 +1,7 @@
 <div class="sidebar-menu">
     <div class="sidebar-header">
         <div class="logo w-100">
-            <a href="{{ route('home') }}" class="w-100">
+            <a href="{{ url('/') }}" class="w-100">
                 <p class="text-light" style="font-size: 17px"><strong>{{config('info.app')}}</strong></p>
             </a>
         </div>

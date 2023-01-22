@@ -19,6 +19,9 @@
               <a href="{{route('order-details',$order->order_id)}}">Order Id #{{$order->order_id}}</a>
             </h3>
             <p class="mb-0">{{($order->payment_type == 'course') ? 'Purchased a Course' : 'Registeration Payment Fees'}}</p>
+            @if($order->payment_type == 'course' && $order->tracking_link != '')
+            <a href="{{$order->tracking_link}}" target="_blank" rel="noopener noreferrer"><b>Track Parcel</b></a><br>
+            @endif
             <small class="text-gray-700">Billed {{\Carbon\Carbon::create($order->created_at)->format('d M Y')}}</small>
           </div>
           <div class="col-auto">

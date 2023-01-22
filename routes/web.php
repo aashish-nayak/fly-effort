@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 Route::post('/offline-internship',[UserController::class,'internship_submit'])->name('internship');
 
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth','verified'])->group(function(){
     Route::middleware('profile')->group(function(){
         Route::get('/dashboard', [UserController::class,'dashboard'])->name('dashboard');
         Route::get('/my-courses', [UserController::class,'courses'])->name('courses');
@@ -56,6 +56,7 @@ Route::middleware(['admin'])->name('admin.')->prefix('admin/')->group(function()
     Route::get('/assignment/delete{id}',[AdminController::class,'assign_delete'])->name('assignment.delete');
     Route::post('/upload-result',[AdminController::class,'result_upload'])->name('upload-result');
     Route::post('/upload-assignment',[AdminController::class,'assign_upload'])->name('upload-assignment');
+    Route::post('/tracking-link',[AdminController::class,'tracking_link'])->name('tracking-link');
     Route::get('/coupons',[AdminController::class,'coupons'])->name('coupons');
     Route::get('/coupon/edit/{id}',[AdminController::class,'coupons'])->name('coupon.edit');
     Route::get('/coupon/delete/{id}',[AdminController::class,'coupon_delete'])->name('coupon.delete');
