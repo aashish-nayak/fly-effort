@@ -53,7 +53,8 @@
               <div class="card-body">
                   <h6 class="card-title">{{$course['course_name']}}</h6>
                   <p class="card-text">{{$course['description']}}</p>
-                  <a href="{{route('razorpay',$course['id'])}}" class="btn btn-xs btn-primary">Buy Course</a>
+                  <p><b>₹{{$course['price']}}</b></p>
+                  <a href="{{route('razorpay',$course['slug'])}}" class="btn btn-xs btn-primary">Buy Course</a>
               </div>
           </div>
       </div>
