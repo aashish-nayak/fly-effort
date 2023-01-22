@@ -12,7 +12,7 @@ class RazorpayController extends Controller
 {
     public function razorpay($course_id,$order = '')
     {   
-        $course = config('courses')->where('id',$course_id)->firstOrFail();
+        $course = config('courses')->where('slug',$course_id)->firstOrFail();
         $orderData = [
             'receipt'         => Str::random(),
             'amount'          => (int)$course['price']."00",
