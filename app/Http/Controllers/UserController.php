@@ -186,7 +186,7 @@ class UserController extends Controller
     {
         $course = config('courses')->where('slug',$slug)->firstOrFail();
         $assignments = Assignment::where('user_id',auth('web')->id())->where('course_id',$course['id'])->latest()->get();
-        $order = Order::where('user_id',auth('web')->id())->where('course_id',$course['id'])->where('payment_status','paid')->select('id','result')->first();
+        $order = Order::where('user_id',auth('web')->id())->where('course_id',$course['id'])->where('payment_status','paid')->first();
         return view('single-course',compact('course','assignments','order'));
     }
 

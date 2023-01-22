@@ -23,6 +23,7 @@ class AdminSeeder extends Seeder
                 'updated_at' => now()->toDateTimeString()
             ],
         ];
+        Admin::truncate();
         Admin::insert($admins);
     }
 }

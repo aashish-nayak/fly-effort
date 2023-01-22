@@ -220,7 +220,7 @@
                                     @csrf
                                     <div class="col-12 mb-2">
                                         <label for="tracking">Tracking Link</label>
-                                        <input type="url" name="tracking" required class="form-control form-control-sm" id="tracking"/>
+                                        <textarea name="tracking" id="tracking" required class="form-control form-control-sm" rows="10"></textarea>
                                     </div>
                                     <div class="col-md-12">
                                         <input type="submit" value="Submit" class="btn btn-sm btn-primary">
@@ -255,7 +255,9 @@
                                     <td>{{ $item->method }}</td>
                                     <td>
                                         @if ($item->tracking_link != '')
-                                            <a href="{{ $item->tracking_link }}" target="_blank" rel="noopener noreferrer">Track</a>
+                                            @php
+                                                echo html_entity_decode($item->tracking_link);
+                                            @endphp
                                             @else
                                             No Link
                                         @endif
