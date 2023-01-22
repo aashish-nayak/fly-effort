@@ -19,10 +19,10 @@ use Illuminate\Support\Facades\Route;
 require __DIR__.'/admin_auth.php';
 require __DIR__.'/auth.php';
 
-Route::get('/', function () {
-    $courses = config('courses');
-    return view('welcome',compact('courses'));
-})->name('home');
+// Route::get('/', function () {
+//     $courses = config('courses');
+//     return view('welcome',compact('courses'));
+// })->name('home');
 
 Route::post('/offline-internship',[UserController::class,'internship_submit'])->name('internship');
 
