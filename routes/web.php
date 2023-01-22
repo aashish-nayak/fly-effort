@@ -34,8 +34,8 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/orders', [UserController::class,'orders'])->name('orders');
         Route::get('/order-details/{order_id}', [UserController::class,'orders_details'])->name('order-details');
         Route::get('/single-course/{slug}', [UserController::class,'single'])->name('single');
-        Route::get('/checkout-payment/{course_slug}/{order_id?}', [CashfreeController::class, 'order'])->name('razorpay');
-        Route::post('/razorpaypayment', [CashfreeController::class, 'payment'])->name('payment');
+        Route::get('/checkout-payment/{course_slug}/{order_id?}', [RazorpayController::class, 'razorpay'])->name('razorpay');
+        Route::post('/razorpaypayment', [RazorpayController::class, 'payment'])->name('payment');
         Route::post('/store-assignments', [UserController::class, 'assignment'])->name('assignment');
     });
     Route::post('/profile_update', [UserController::class,'profile_update'])->name('profile_update');
