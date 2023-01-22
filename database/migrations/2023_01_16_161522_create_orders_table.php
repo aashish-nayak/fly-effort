@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('payment_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
+            $table->float('discount')->default(0);
             $table->float('price');
             $table->enum('payment_type',['course','register']);
             $table->string('course_id')->nullable();

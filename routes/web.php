@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function(){
     });
     Route::post('/profile_update', [UserController::class,'profile_update'])->name('profile_update');
     Route::get('/profile', [UserController::class,'profile'])->name('profile');
+    Route::post('/check-promo', [UserController::class,'check_promo'])->name('check_promo');
+    Route::get('/user-checkout', [UserController::class,'register_checkout'])->name('user_checkout');
     Route::get('/user-payment', [UserController::class,'register_payment'])->name('user_payment');
     Route::post('/user-payment', [UserController::class,'payment'])->name('payment_save');
 });
@@ -54,4 +56,8 @@ Route::middleware(['admin'])->name('admin.')->prefix('admin/')->group(function()
     Route::get('/assignment/delete{id}',[AdminController::class,'assign_delete'])->name('assignment.delete');
     Route::post('/upload-result',[AdminController::class,'result_upload'])->name('upload-result');
     Route::post('/upload-assignment',[AdminController::class,'assign_upload'])->name('upload-assignment');
+    Route::get('/coupons',[AdminController::class,'coupons'])->name('coupons');
+    Route::get('/coupon/edit/{id}',[AdminController::class,'coupons'])->name('coupon.edit');
+    Route::get('/coupon/delete/{id}',[AdminController::class,'coupon_delete'])->name('coupon.delete');
+    Route::post('/coupon/create',[AdminController::class,'coupon_create'])->name('coupon.create');
 });

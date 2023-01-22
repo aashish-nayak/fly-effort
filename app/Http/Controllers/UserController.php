@@ -7,10 +7,12 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\Assignment;
 use App\Models\Internship;
+use App\Models\Promocode;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
+use stdClass;
+
 class UserController extends Controller
 {
     public function dashboard()
@@ -32,13 +34,61 @@ class UserController extends Controller
         return view('courses',compact('courses'));
     }
 
+    public function calculateDiscount($code)
+    {
+        $promo = Promocode::where('coupon',$code)->where('status',1)->first();
+        $price = (float)config('app.register_fees');
+        $discount = 0;
+        if($promo != ''){
+            if($promo->type == 'price'){
+                $discount = $promo->value;
+                $price = $price - $discount;
+            }elseif ($promo->type == 'percentage') {
+                $discount = ($promo->value / 100) * $price;
+                $price = $price - $discount;
+            }
+        }
+        $data = new stdClass();
+        $data->promo = $promo;
+        $data->price = number_format((float)$price, 2, '.', '');
+        $data->discount = number_format((float)$discount, 2, '.', '');
+        return $data;
+    }
+
+    public function check_promo(Request $request)
+    {
+        $data = $this->calculateDiscount($request->code);
+        if($data->promo != ''){
+            $status = 'success';
+            $message = 'Coupon Code Applied!';
+            Session::put('promo_code',$data->promo->coupon);
+        }else{
+            if(session()->exists('promo_code')){
+                session()->forget('promo_code');
+            }
+            $status = 'error';
+            $message = 'Invalid Coupon Code!';
+        }
+        $data = ['price'=>number_format((float)$data->price, 2, '.', ''),'discount'=>number_format((float)$data->discount, 2, '.', ''),'status'=>$status,'message'=>$message];
+        return response()->json($data);
+    }
+
+    public function register_checkout()
+    {
+        return view('register-checkout');
+    }
+
     public function register_payment()
     {
         $env = (config('app.env') == 'local') ? 'https://sandbox.cashfree.com/pg/' : 'https://api.cashfree.com/pg/';
         $sessionKey = strtolower(Str::replace(' ','_',auth('web')->user()->name)).'__'.auth('web')->id();
         if(!session()->exists($sessionKey)){
             $client = new \GuzzleHttp\Client();
-    
+            $amount = config('app.register_fees');
+            if(session()->exists('promo_code')){
+                $data = $this->calculateDiscount(session()->get('promo_code'));
+                $amount = $data->price;
+            }
             $response = $client->request('POST', $env.'orders', [
                 'headers' => [
                     'accept' => 'application/json',
@@ -49,7 +99,7 @@ class UserController extends Controller
                 ],
                 'body' => '{
                     "order_id": "order_'.Str::random().'",
-                    "order_amount": '.number_format((float)config('app.register_fees'), 2, '.', '').',
+                    "order_amount": '.number_format((float)$amount, 2, '.', '').',
                     "order_currency":"INR",
                     "customer_details": {
                         "customer_id":"'.auth('web')->id().'",
@@ -81,6 +131,10 @@ class UserController extends Controller
                 $order->order_id = $response->order->orderId;
                 $order->payment_id = $response->transaction->transactionId;
                 $order->payment_type = 'register';
+                if(session()->exists('promo_code')){
+                    $data = $this->calculateDiscount(session()->get('promo_code'));
+                    $order->discount = $data->discount;
+                }
                 $order->price = number_format((float)$response->transaction->transactionAmount, 2, '.', '');
                 $order->method = (!empty($response->order->activePaymentMethod)) ? $response->order->activePaymentMethod : 'previous-method';
                 $order->parcel_status = 'failed';
@@ -88,12 +142,19 @@ class UserController extends Controller
                 $order->save();
                 
                 if($response->transaction->txStatus != 'FAILED'){
-                    if(session()->exists($sessionKey)){
-                        session()->forget($sessionKey);
-                    }
                     $user = User::find(auth('web')->id());
                     $user->status = 1;
                     $user->save();
+                    $promo = Promocode::where('coupon',session()->get('promo_code'))->where('status',1)->first();
+                    $user->promos()->sync([$promo->id]);
+
+                    if(session()->exists($sessionKey)){
+                        session()->forget($sessionKey);
+                    }
+                    if(session()->exists('promo_code')){
+                        session()->forget('promo_code');
+                    }
+
                     $message = 'Registeration Payment successful!';
                     $request->session()->flash('success',$message);
                 }else{

@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Assignment;
 use App\Models\Internship;
 use App\Models\Order;
+use App\Models\Promocode;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -50,6 +51,49 @@ class AdminController extends Controller
     {
         $orders = Order::latest()->get();
         return view('admin.orders', compact('orders'));
+    }
+
+    public function coupons($id = '')
+    {
+        $edit = '';
+        if($id != ''){
+            $edit = Promocode::find($id);
+        }
+        $promos = Promocode::withCount('users')->latest()->get();
+        return view('admin.coupons',compact('promos','edit'));
+    }
+
+    public function coupon_delete($id)
+    {
+        try {
+            Promocode::find($id)->delete();
+            request()->session()->flash('success','Promo Code Deleted!');
+        } catch (\Exception $e) {
+            request()->session()->flash('error',$e->getMessage());
+        }
+        return redirect()->back();
+    }
+
+    public function coupon_create(Request $request)
+    {
+        try {
+            if($request->has('id')){
+                $promo = Promocode::find($request->id);
+                $message = 'PromoCode Updated';
+            }else{
+                $promo = new Promocode();
+                $message = 'PromoCode Generated';
+            }
+            $promo->coupon = strtoupper(str_replace(' ','',$request->coupon));
+            $promo->type = $request->type;
+            $promo->value = $request->value;
+            $promo->status = $request->status;
+            $promo->save();
+            $request->session()->flash('success',$message);
+        } catch (\Exception $e) {
+            $request->session()->flash('error',$e->getMessage());
+        }
+        return redirect()->route('admin.coupons');
     }
 
     public function internships()

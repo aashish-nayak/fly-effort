@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class,'user_id')->latest();
     }
+
+    public function promos()
+    {
+        return $this->belongsToMany(Promocode::class,'promocode_user','user_id','promocode_id');
+    }
 }

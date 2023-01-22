@@ -21,7 +21,7 @@ class UserProfileMiddleware
             return redirect('profile');
         }
         if(Auth::guard('web')->check() && auth('web')->user()->status == 0){
-            return redirect('user-payment');
+            return redirect('user-checkout');
         }
         return $next($request);
     }

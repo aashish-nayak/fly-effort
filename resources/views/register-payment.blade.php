@@ -18,7 +18,7 @@
         </div>
         @endif
     </div>
-    <div class="col-12 col-md-8">
+    <div class="col-12">
         <div class="card border-light mb-4">
             <div class="card-header py-3">
                 <h5 class="mb-0">Registeration Fees</h5>

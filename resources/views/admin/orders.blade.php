@@ -20,6 +20,7 @@
                             <th>StudentName</th>
                             <th>Payment Type</th>
                             <th>Course</th>
+                            <th>Discount</th>
                             <th>Price</th>
                             <th>Method</th>
                             <th>Payment Status</th>
@@ -35,6 +36,7 @@
                             <td><a href="{{route('admin.user.info',$item->user->id)}}">{{ $item->user->name }}</a></td>
                             <td>{{ ($item->payment_type == 'course') ? 'Course Purchased' : 'Registeration Fee' }}</td>
                             <td>{{ ($item->payment_type == 'course') ? $item->course_name : 'Fee' }}</td>
+                            <td>{{ $item->discount }}</td>
                             <td>{{ $item->price }}</td>
                             <td>{{ $item->method }}</td>
                             <td><span class="badge badge-sm {{ ($item->payment_status == 'paid') ? 'badge-success' : 'badge-danger' }}">{{ $item->payment_status }}</span></td>

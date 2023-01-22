@@ -35,6 +35,11 @@
                             <i class="fa fa-bell"></i><span>Notification</span>
                         </a>
                     </li>
+                    <li class="">
+                        <a href="{{ route('admin.coupons') }}">
+                            <i class="ti-gift"></i><span>Coupons</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('admin.logout') }}" onclick="event.preventDefault();$('#logout-form').submit();">
                             <i class="ti-power-off"></i> <span>Logout</span>
