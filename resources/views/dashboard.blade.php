@@ -4,6 +4,20 @@
 
 @section('main')
 <div class="row">
+  <div class="col-12">
+    @if(Session::has('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Error!</strong> {{ Session::get('error') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+    @if(Session::has('success'))
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+      <strong>Success!</strong> {{ Session::get('success') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+  </div>
   <div class="col-12 col-md-6 mb-4">
     <div class="card border-light">
       <div class="card-header py-2">
@@ -26,7 +40,7 @@
           <span class="d-block font-weight-normal">Course Purchased</span>
           <h6 class="h5 font-weight-bold mb-1">
             {{$courseCount}}
-          </h5>
+            </h5>
         </div>
       </div>
     </div>
@@ -48,15 +62,15 @@
     <div class="row row-cols-3">
       @foreach (config('courses') as $course)
       <div class="col">
-          <div class="card h-100">
-              <img src="{{$course['image']}}" class="card-img-top" alt="...">
-              <div class="card-body">
-                  <h6 class="card-title">{{$course['course_name']}}</h6>
-                  <p class="card-text">{{$course['description']}}</p>
-                  <p><b>₹{{$course['price']}}</b></p>
-                  <a href="{{route('razorpay',$course['slug'])}}" class="btn btn-xs btn-primary">Buy Course</a>
-              </div>
+        <div class="card h-100">
+          <img src="{{$course['image']}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h6 class="card-title">{{$course['course_name']}}</h6>
+            <p class="card-text">{{$course['description']}}</p>
+            <p><b>₹{{$course['price']}}</b></p>
+            <a href="{{route('razorpay',$course['slug'])}}" class="btn btn-xs btn-primary">Buy Course</a>
           </div>
+        </div>
       </div>
       @endforeach
     </div>

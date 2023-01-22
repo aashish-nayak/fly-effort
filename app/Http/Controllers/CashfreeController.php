@@ -56,12 +56,15 @@ class CashfreeController extends Controller
                 $order->order_id = $response->order->orderId;
                 $order->price = number_format((float)$response->transaction->transactionAmount, 2, '.', '');
                 $order->user_id = auth('web')->id();
+                $order->payment_type = 'course';
                 $order->course_id = $course['id'];
                 $order->course_name = $course['course_name'];
                 $order->payment_id = $response->transaction->transactionId;
-                $order->method = $response->order->activePaymentMethod;
+                $order->method = (!empty($response->order->activePaymentMethod)) ? $response->order->activePaymentMethod : 'previous-method';
                 $order->parcel_status = ($response->transaction->txStatus != 'FAILED') ? 'dispatched' : 'failed';
                 $order->payment_status = ($response->transaction->txStatus != 'FAILED') ? 'paid' : 'failed';
+                $order->save();
+                
                 if($response->transaction->txStatus != 'FAILED'){
                     if(session()->exists(Str::replace('-','_',$course['slug']))){
                         session()->forget(Str::replace('-','_',$course['slug']));
@@ -72,7 +75,6 @@ class CashfreeController extends Controller
                     $message = 'Payment Failed!';
                     $request->session()->flash('error',$message);
                 }
-                $order->save();
             } 
             catch (\Exception $e) 
             {

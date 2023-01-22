@@ -8,14 +8,14 @@ use App\Models\User;
 use App\Models\Assignment;
 use App\Models\Internship;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
     public function dashboard()
     {
-        $courseCount = Order::where('user_id',auth('web')->id())->where('payment_status','paid')->count();
+        $courseCount = Order::where('user_id',auth('web')->id())->where('payment_type','course')->where('payment_status','paid')->count();
         $orderCount = Order::where('user_id',auth('web')->id())->count();
         $noti = Admin::first();
         return view('dashboard', compact('courseCount','orderCount','noti'));
@@ -30,6 +30,83 @@ class UserController extends Controller
     {
         $courses = config('courses')->whereIn('id',Order::where('user_id',auth('web')->id())->where('payment_status','paid')->select('course_id')->get()->pluck('course_id'));
         return view('courses',compact('courses'));
+    }
+
+    public function register_payment()
+    {
+        $env = (config('app.env') == 'local') ? 'https://sandbox.cashfree.com/pg/' : 'https://api.cashfree.com/pg/';
+        $sessionKey = strtolower(Str::replace(' ','_',auth('web')->user()->name)).'__'.auth('web')->id();
+        if(!session()->exists($sessionKey)){
+            $client = new \GuzzleHttp\Client();
+    
+            $response = $client->request('POST', $env.'orders', [
+                'headers' => [
+                    'accept' => 'application/json',
+                    'content-type' => 'application/json',
+                    "x-api-version" => "2022-09-01",
+                    "x-client-id" => config('cashfree.appID'),
+                    "x-client-secret" => config('cashfree.secretKey')
+                ],
+                'body' => '{
+                    "order_id": "order_'.Str::random().'",
+                    "order_amount": '.number_format((float)config('app.register_fees'), 2, '.', '').',
+                    "order_currency":"INR",
+                    "customer_details": {
+                        "customer_id":"'.auth('web')->id().'",
+                        "customer_name":"'.auth('web')->user()->name.'",
+                        "customer_email":"'.auth('web')->user()->email.'",
+                        "customer_phone":"'.auth('web')->user()->phone.'"
+                    },
+                    "order_expiry_time": "'. now()->addDay()->toIso8601String() .'",
+                    "order_note":"Student Registeration Fees"
+                }',
+            ]);
+    
+            $body = json_decode($response->getBody());
+            Session::put($sessionKey,$body->payment_session_id);
+        }
+        return view('register-payment');
+    }
+
+    public function payment(Request $request)
+    {
+        if(!empty($request->response_data)) {
+            $sessionKey = strtolower(Str::replace(' ','_',auth('web')->user()->name)).'__'.auth('web')->id();
+            try 
+            {
+                $response = json_decode($request->response_data);
+
+                $order = new Order();
+                $order->user_id = auth('web')->id();
+                $order->order_id = $response->order->orderId;
+                $order->payment_id = $response->transaction->transactionId;
+                $order->payment_type = 'register';
+                $order->price = number_format((float)$response->transaction->transactionAmount, 2, '.', '');
+                $order->method = (!empty($response->order->activePaymentMethod)) ? $response->order->activePaymentMethod : 'previous-method';
+                $order->parcel_status = 'failed';
+                $order->payment_status = ($response->transaction->txStatus != 'FAILED') ? 'paid' : 'failed';
+                $order->save();
+                
+                if($response->transaction->txStatus != 'FAILED'){
+                    if(session()->exists($sessionKey)){
+                        session()->forget($sessionKey);
+                    }
+                    $user = User::find(auth('web')->id());
+                    $user->status = 1;
+                    $user->save();
+                    $message = 'Registeration Payment successful!';
+                    $request->session()->flash('success',$message);
+                }else{
+                    $message = 'Registeration Payment Failed!';
+                    $request->session()->flash('error',$message);
+                }
+            } 
+            catch (\Exception $e) 
+            {
+                $message = ['error'=>$e->getMessage()];
+            }
+            return response()->json($message);
+        }
     }
 
     public function orders()

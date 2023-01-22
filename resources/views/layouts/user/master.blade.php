@@ -28,8 +28,8 @@
     </div>
     <div class="py-5">
       <div class="container">
-        <div class="row">
-          @if (auth('web')->user()->profile_complete == 1 && !request()->routeIs('order-details'))
+        <div class="row justify-content-center">
+          @if (auth('web')->user()->profile_complete == 1 && auth('web')->user()->status == 1 && !request()->routeIs('order-details'))
           @include('layouts.user.includes.sidenav')
           @endif
           <div class="col-12 @if (auth('web')->user()->profile_complete == 1 && !request()->routeIs('order-details')) col-lg-8 @else col-lg-12 @endif">

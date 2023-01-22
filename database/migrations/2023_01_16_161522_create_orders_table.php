@@ -17,10 +17,12 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('order_id')->unique();
             $table->string('payment_id')->nullable();
-            $table->foreignId('user_id');
-            $table->string('course_id');
-            $table->string('course_name');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
             $table->float('price');
+            $table->enum('payment_type',['course','register']);
+            $table->string('course_id')->nullable();
+            $table->string('course_name')->nullable();
             $table->string('method')->nullable();
             $table->string('parcel_status')->nullable();
             $table->string('tracking_link')->nullable();

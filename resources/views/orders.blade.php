@@ -18,6 +18,7 @@
             <h3 class="h6 mb-1">
               <a href="{{route('order-details',$order->order_id)}}">Order Id #{{$order->order_id}}</a>
             </h3>
+            <p class="mb-0">{{($order->payment_type == 'course') ? 'Purchased a Course' : 'Registeration Payment Fees'}}</p>
             <small class="text-gray-700">Billed {{\Carbon\Carbon::create($order->created_at)->format('d M Y')}}</small>
           </div>
           <div class="col-auto">

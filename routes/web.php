@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function(){
     });
     Route::post('/profile_update', [UserController::class,'profile_update'])->name('profile_update');
     Route::get('/profile', [UserController::class,'profile'])->name('profile');
+    Route::get('/user-payment', [UserController::class,'register_payment'])->name('user_payment');
+    Route::post('/user-payment', [UserController::class,'payment'])->name('payment_save');
 });
 
 Route::middleware(['admin'])->name('admin.')->prefix('admin/')->group(function(){

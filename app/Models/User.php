@@ -29,7 +29,8 @@ class User extends Authenticatable
         'city',
         'zip',
         'profile_complete',
-        'password'
+        'password',
+        'status'
     ];
     /**
      * The attributes that should be hidden for serialization.

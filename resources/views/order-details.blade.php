@@ -69,7 +69,11 @@
               </thead>
               <tbody>
                 <tr>
+                  @if ($order->payment_type == 'course')
                   <th scope="row" class="text-left font-weight-bold h6">{{$order->course_name}}</th>
+                  @else
+                  <th scope="row" class="text-left font-weight-bold h6">Registeration Fee</th>
+                  @endif
                   <td>{{$order->price}}</td>
                   <td>1</td>
                   <td>{{$order->price}}</td>

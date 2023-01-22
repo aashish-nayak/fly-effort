@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             $table->integer('zip')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('status')->default(1);
+            $table->boolean('status')->default(0);
             $table->boolean('profile_complete')->default(0);
             $table->string('result')->nullable();
             $table->rememberToken();

@@ -12,12 +12,13 @@
                 <h6>Orders</h6>
             </div>
             <div class="card-body">
-                <table id="queries" class="table table-striped table-bordered" style="width:100%">
+                <table id="queries" class="table table-responsive table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>S.No.</th>
                             <th>OrderID</th>
                             <th>StudentName</th>
+                            <th>Payment Type</th>
                             <th>Course</th>
                             <th>Price</th>
                             <th>Method</th>
@@ -32,7 +33,8 @@
                             <td>{{ $key+1 }}</td>
                             <td>{{ $item->order_id }}</td>
                             <td><a href="{{route('admin.user.info',$item->user->id)}}">{{ $item->user->name }}</a></td>
-                            <td>{{ $item->course_name }}</td>
+                            <td>{{ ($item->payment_type == 'course') ? 'Course Purchased' : 'Registeration Fee' }}</td>
+                            <td>{{ ($item->payment_type == 'course') ? $item->course_name : 'Fee' }}</td>
                             <td>{{ $item->price }}</td>
                             <td>{{ $item->method }}</td>
                             <td><span class="badge badge-sm {{ ($item->payment_status == 'paid') ? 'badge-success' : 'badge-danger' }}">{{ $item->payment_status }}</span></td>

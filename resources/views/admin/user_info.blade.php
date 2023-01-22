@@ -91,7 +91,7 @@
                                         <label for="select-course">Select Course</label>
                                         <select name="order_id" class="form-control form-control-sm" required id="select-course">
                                             <option value="">Select Course</option>
-                                            @foreach($user->orders->where('payment_status','paid') as $key => $order)
+                                            @foreach($user->orders->where('payment_status','paid')->where('payment_type','course') as $key => $order)
                                                 @php
                                                     $course = config('courses')->where('id',$order->course_id)->first();
                                                 @endphp
@@ -199,6 +199,7 @@
                                 <tr>
                                     <th>SNo.</th>
                                     <th>OrderID</th>
+                                    <th>Payment Type</th>
                                     <th>Course</th>
                                     <th>Price</th>
                                     <th>Method</th>
@@ -211,7 +212,8 @@
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $item->order_id }}</td>
-                                    <td>{{ $item->course_name }}</td>
+                                    <td>{{ ($item->payment_type == 'course') ? 'Course Purchased' : 'Registeration Fee' }}</td>
+                                    <td>{{ ($item->payment_type == 'course') ? $item->course_name : 'Fee' }}</td>
                                     <td>{{ $item->price }}</td>
                                     <td>{{ $item->method }}</td>
                                     <td><span class="badge badge-sm {{ ($item->payment_status == 'paid') ? 'badge-success' : 'badge-danger' }}">{{ $item->payment_status }}</span></td>

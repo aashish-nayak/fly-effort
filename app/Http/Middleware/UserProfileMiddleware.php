@@ -20,6 +20,9 @@ class UserProfileMiddleware
         if(Auth::guard('web')->check() && auth('web')->user()->profile_complete == 0){
             return redirect('profile');
         }
+        if(Auth::guard('web')->check() && auth('web')->user()->status == 0){
+            return redirect('user-payment');
+        }
         return $next($request);
     }
 }
