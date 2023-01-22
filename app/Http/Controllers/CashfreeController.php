@@ -42,7 +42,7 @@ class CashfreeController extends Controller
             $body = json_decode($response->getBody());
             Session::put(Str::replace('-','_',$course['slug']),$body->payment_session_id);
         }
-        return view('payment2',compact('course'));
+        return view('payment',compact('course'));
     }
 
     public function payment(Request $request)

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CashfreeController;
-use App\Http\Controllers\RazorpayController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
