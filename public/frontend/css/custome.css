@@ -1,0 +1,270 @@
+html,body{
+    overflow-x: hidden;
+}
+/* Root Color Section */
+:root{
+    --primary: #05143B;
+    --secondary: #fa1005;  
+    --txt: #585858;
+    --white: #fff;
+    --light-bg: #f2f2f2;
+    --red: #f9251b;
+    --orange: #eb3d22;
+}
+/* End Root Color Section */
+
+/*Bg section start*/
+.light-bg,
+.dark-bg{
+    padding: 100px 0px;
+}
+.light-bg{
+    background-color: #ffffff !important;
+}
+.dark-bg{
+    background-color: #f2f2f2 !important;
+}
+/*End BG Section*/
+
+/* Top Navbar Section */
+header .header_top_area{
+    background-color: #f2f2f2;
+}
+header .header_top_area .contact_wrapper_top .book-btn{
+    padding: 6px 12px;
+}
+/*End Top Navbar Section  */
+
+/*Navbar Section Start*/
+.header-one{
+    position: static;
+}
+.navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .active>.nav-link{
+    color: var(--txt);
+}
+.navbar-light .navbar-nav .nav-link{
+    color: var(--txt);
+}
+.navbar-light .navbar-nav .nav-item:hover .dropdown{
+    z-index: 1;
+    background-color: var(--primary);
+}
+.navbar-light .navbar-nav .nav-item .dropdown .nav-link{
+    color: var(--white);
+}
+.navbar-light .navbar-nav .nav-item .dropdown .nav-link:hover{
+    color: var(--white);
+}
+/*End Navbar Section*/
+
+/* Slider Section Start */
+.hero-slide-three .slick-current .item img{
+    /* transition: none;
+    animation: none; */
+}
+.hero-slide-three .item img{
+    width: 100%;
+    height: auto;
+}
+.hero-slide-three .item {
+    height: auto;
+    object-fit: none;
+    object-position: none;
+}
+.hero-slide-three{
+    line-height: 0;
+}
+/* End Slider Section */
+
+/*About US Section Start*/
+.read-more a{
+    color: var(--primary);
+    border-bottom: 1px solid var(--secondary);
+    transition: ease-in-out 0.5s;
+    font-weight: 500;
+}
+.about-content1 {
+  margin-bottom: 0px;
+}
+.read-more a:hover{
+    color: var(--secondary);
+    border-bottom: 1px solid var(--primary);
+}
+.video-img-box::before{
+    background: transparent;
+}
+/* End About Us Section */
+
+/*Call Out Section Start*/
+.single-choose i{
+    border-color: var(--primary);
+    background: var(--primary);
+}
+/*End Call Out Section*/
+
+/* Contact Us Section  */
+.contact-form .form-group input,
+select.form-control{
+    border-bottom: 0px;
+    background-color: var(--white);
+}
+
+.hm-enquiry-form .title-left{
+    margin-bottom: 15px;
+    text-align: start;
+}
+.contact-form{
+        box-shadow: 0px 0px 5px 4px #c1c1c1;
+        padding: 12px 20px;
+}
+.grey-alt-bg{
+    background-color: var(--light-bg);
+}
+.conatact-us-form .contact-form{
+    background-color: #f2f2f2;
+}
+.conatact-us-form .title-left,
+.contact-info-two .title-left{
+    margin-bottom: 20px;
+    color: #585858;
+    font-size: 38px;
+    text-align: left;
+}
+.contact-info-two{
+      box-shadow: 0px 0px 5px 4px #c1c1c1;
+        padding: 12px 20px;
+}
+/* End Contact Us Section */
+
+/*Review Section Start*/
+.testimonial {
+    background-color: #fff;
+}
+.testimonial .owl-item.active.center .single-testimonial{
+    background: #f2f2f2;
+}
+.testimonial .overlay {
+    background-color: transparent;
+    z-index: 1;
+}
+
+.testimonial .white-title h2{
+    color: var(--txt);
+}
+
+#testimonial-slider .owl-nav div{
+    background: var(--primary);
+    color: #ffffff;
+}
+.testimonial-content{
+    color: var(--txt);
+}
+.testimonial .title{
+    color: var(--txt);;
+}
+.overlay .section-title{
+    margin-bottom: 20px;
+}
+.overlay.section-padding{
+    padding: 0px;
+}
+
+/* End Review Section */
+/*Side Bar Social Icon Section Start*/
+
+.social_icon {
+    position: fixed;
+    right: 15px;
+    bottom: 50%;
+    z-index: 1000;
+}
+
+.social_icon .all-icon {
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background-color: #ded9d9;
+    transition-duration: 0.5s;
+    margin-bottom: 5px;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid var(--orange);
+}
+.all-icon a{
+    color: var(--primary);
+}
+/*End Slider Bar Social Icon Section*/
+
+/*Btn Bottom To Top Section*/
+#btn-to-top:hover{
+    border: 0px;
+}
+#btn-to-top::after {
+    content: "\f30c";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 25px;
+    line-height: 50px;
+    position: relative;
+    color: #ffffff;
+    right: 0px;
+    bottom: 0px;
+}
+
+/*EnD Btn Bottom TO Top Section*/
+
+/*Call Out Bottom Slider Section*/
+.custom-callout .col-xs-12:hover{
+    box-shadow: none;
+    transition: none;
+    border-radius: 0px;
+}
+.custom-callout .single-choose {
+    box-shadow: 0px 0px 10px 1px rgb(0 0 0 / 20%);
+    transition: all 0.5s ease-in-out;
+    border-radius: 5px;
+    padding: 10px;
+}
+.custom-callout .single-choose:hover{
+    box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 30%);
+    padding: 10px;
+}
+/*End Call Out Bottom Slider Section*/
+
+/*Top Navbar Section Start*/
+header .header_top_area .contact_wrapper_top .header_top_contact{
+    padding-left: 0px;
+}
+.btn-singup, .btn-login{
+    padding: 8px 20px;
+    background-color: var(--primary);
+    color: var(--white);
+}
+.center-btn{
+    display: flex;
+    justify-content: center;
+}
+/*End Top Navbar Section*/
+/*All Coures Apply From*/
+
+.contact-form .btn-1{
+    border-radius: 0px;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+}
+.contact-form .btn-1:hover {
+    background-color:  var(--secondary);
+      color: var(--white);
+}
+ .page-form-apply-now .contact-form{
+     background-color: #f2f2f2;
+ }
+/*EnD ALL Coures Apply From*/
+
+/*All Page Banner Section */
+.same-section-spacing{
+    padding: 100px 0px;
+}
+/*EnD All Page Banner Section*/

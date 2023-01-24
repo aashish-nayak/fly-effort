@@ -203,7 +203,7 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255',$checkEmail],
-            'phone' => ['required', 'numeric',$checkPhone],
+            'phone' => ['required', 'numeric', 'digits:10', $checkPhone],
             'shipping_address' => ['required', 'string', 'max:255'],
             'zip' => ['required', 'numeric'],
             'city' => ['required', 'string', 'max:255'],

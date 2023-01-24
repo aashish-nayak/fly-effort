@@ -19,10 +19,13 @@ use Illuminate\Support\Facades\Route;
 require __DIR__.'/admin_auth.php';
 require __DIR__.'/auth.php';
 
-// Route::get('/', function () {
-//     $courses = config('courses');
-//     return view('welcome',compact('courses'));
-// })->name('home');
+Route::view('/', 'frontend.index')->name('home');
+Route::view('/about-us','frontend.about-us')->name('about');
+Route::view('/faq','frontend.faq')->name('faq');
+Route::view('/contact-us','frontend.contact-us')->name('contact');
+Route::view('/airhostess-cabin-crew','frontend.airhostess')->name('airhostess-cabin-crew');
+Route::view('/airport-management','frontend.airport-management')->name('airport-management');
+Route::view('/airport-retail','frontend.airport-retail')->name('airport-retail');
 
 Route::post('/offline-internship',[UserController::class,'internship_submit'])->name('internship');
 
